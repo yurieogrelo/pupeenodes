@@ -6,7 +6,7 @@ import cors from "cors";
 const server = express();
 server.use(cors());
 
-server.get("/", async (req, res) => {
+server.get("/file:///C:/Users/kangu/OneDrive/Desktop/meusestados/paginainicial/inicial.html", async (req, res) => {
     puppeteer.use(stealth());
 
     const main = async () => {
