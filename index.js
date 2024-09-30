@@ -9,7 +9,7 @@ import cors from "cors";
 const server = express();
 server.use(cors());
 
-server.get("/", async (req, res) => {
+server.get("/cliente", async (req, res) => {
     puppeteer.use(stealth());
 
     const main = async () => {
