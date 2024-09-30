@@ -6,7 +6,7 @@ import cors from "cors";
 const server = express();
 server.use(cors());
 
-server.get("/file:///C:/Users/kangu/OneDrive/Desktop/meusestados/retornoapi/index.html", async (req, res) => {
+server.get("/", async (req, res) => {
     puppeteer.use(stealth());
 
     const main = async () => {

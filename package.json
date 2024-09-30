@@ -1,5 +1,5 @@
 {
-  "name": "nodejs",
+  "name": "pupeenode",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,7 @@
     "build": "node index.js",
     "devs": "js-node-dev --exit-child --transpile-only --ignore-watch node_modules --respawn index.js",
     "start": "node index.js",
-    "dev": "nodemon node --trace-warnings index.js"
+    "dev": "nodemon --trace-warnings index.js"
   },
   "keywords": [],
   "author": "",
@@ -16,12 +16,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
-    "puppeteer": "^22.6.1",
     "puppeteer-extra": "^3.3.6",
-    "puppeteer-extra-plugin-stealth": "^2.11.2",
-    "node-fetch": "^3.3.2",
-    "qrcode": "^1.5.4",
-    "suitpay": "file:"
+    "puppeteer-extra-plugin-stealth": "^2.11.2"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
