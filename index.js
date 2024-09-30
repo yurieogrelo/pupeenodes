@@ -9,11 +9,8 @@ import path from 'path';
 const server = express();
 server.use(cors());
 
-server.get("/retornoapi", (req, res) => {
-    res.sendFile(path.join(__dirname, 'retornoapi', 'index.html'));
-});
-
-server.get("/clientes", async (req, res) => {
+server.get("/retornoapi", async (req, res) => {
+   
     puppeteer.use(stealth());
 
     const main = async () => {
