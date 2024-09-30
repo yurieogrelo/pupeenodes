@@ -9,7 +9,7 @@ import path from 'path';
 const server = express();
 server.use(cors());
 
-server.get("/retornoapi", async (req, res) => {
+server.get("/respostagoias", async (req, res) => {
    
     puppeteer.use(stealth());
 
