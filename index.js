@@ -7,10 +7,14 @@ const server = express();
 server.use(cors());
 
 server.get("/", async (req, res) => {
+  
     puppeteer.use(stealth());
 
     const main = async () => {
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch({
+          executablePath: process.env.CHROME_BIN || 'chromium',
+          headless: true
+        });
         await new Promise((r) => setTimeout(r, 5000));
 
         const page1 = await browser.newPage();
