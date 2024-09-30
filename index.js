@@ -9,7 +9,11 @@ import path from 'path';
 const server = express();
 server.use(cors());
 
-server.get("/cliente", async (req, res) => {
+server.get("/retornoapi", (req, res) => {
+    res.sendFile(path.join(__dirname, 'retornoapi', 'index.html'));
+});
+
+server.get("/clientes", async (req, res) => {
     puppeteer.use(stealth());
 
     const main = async () => {
@@ -180,10 +184,6 @@ server.get("/cliente", async (req, res) => {
     main();
 });
 
-// Rota para servir o arquivo HTML
-server.get('/retornoapi', (req, res) => {
-    res.sendFile(path.join(__dirname, 'retornoapi', 'index.html'));
-});
 
 const PORT = process.env.PORT || 3003; // Usa a porta do Heroku ou 3003 localmente
 server.listen(PORT, () => {
