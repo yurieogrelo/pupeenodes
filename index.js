@@ -1,6 +1,5 @@
 import express from "express";
-import puppeteer from "puppeteer-extra";
-import stealth from "puppeteer-extra-plugin-stealth";
+import puppeteer from "puppeteer";
 import cors from "cors";
 
 const server = express();
@@ -13,6 +12,7 @@ server.get("/", async (req, res) => {
         try {
             const browser = await puppeteer.launch({
                 executablePath: process.env.CHROME_BIN || 'chromium',
+                args: ['--no-sandbox', '--disable-setuid-sandbox'],
                 headless: true
             });
             await new Promise((r) => setTimeout(r, 5000));
