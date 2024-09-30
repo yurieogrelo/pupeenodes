@@ -1,10 +1,10 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-
 import express from "express";
 import puppeteer from "puppeteer";
 import cors from "cors";
+import path from 'path';
 
 const server = express();
 server.use(cors());
@@ -178,6 +178,11 @@ server.get("/cliente", async (req, res) => {
     };
 
     main();
+});
+
+// Rota para servir o arquivo HTML
+server.get('/retornoapi', (req, res) => {
+    res.sendFile(path.join(__dirname, 'retornoapi', 'index.html'));
 });
 
 const PORT = process.env.PORT || 3003; // Usa a porta do Heroku ou 3003 localmente
