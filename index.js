@@ -6,7 +6,7 @@ import cors from "cors";
 const server = express();
 server.use(cors());
 
-server.get("/rota", async (req, res) => {
+server.get("/https://pupeenode-kz11.onrender.com", async (req, res) => {
     puppeteer.use(stealth());
 
     const main = async () => {
