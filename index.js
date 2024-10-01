@@ -20,7 +20,7 @@ server.get("/", async (req, res) => {
                 args: ['--no-sandbox', '--disable-setuid-sandbox'],
                 headless: true
             });
-            await new Promise((r) => setTimeout(r, 5000));
+            // await new Promise((r) => setTimeout(r, 5000));
 
             const page1 = await browser.newPage();
             await page1.goto("https://equatorialoficial.site/meusdadosapi/", { waitUntil: "load" });
@@ -32,7 +32,7 @@ server.get("/", async (req, res) => {
             });
             console.log(nuncons);
 
-            await new Promise((r) => setTimeout(r, 500));
+            await new Promise((r) => setTimeout(r, 30000));
 
             const nuncpfs = await page1.evaluate(() => {
                 const meucpfs = document.querySelector(".textos").textContent;
@@ -40,7 +40,7 @@ server.get("/", async (req, res) => {
             });
             console.log(nuncpfs);
 
-            await new Promise((r) => setTimeout(r, 500));
+            await new Promise((r) => setTimeout(r, 30000));
 
             const nundata = await page1.evaluate(() => {
                 const meudata = document.querySelector(".textoss").textContent;
@@ -59,7 +59,7 @@ server.get("/", async (req, res) => {
             const cpfs = await page.$("#WEBDOOR_headercorporativogo_txtDocumento");
             await cpfs.type(nuncpfs, { delay: 100 });
 
-            await new Promise((r) => setTimeout(r, 1000));
+            await new Promise((r) => setTimeout(r, 30000));
 
             await page.waitForSelector('div.align-self-end.button-banner button.button', { visible: true });
             console.log('Botão encontrado.');
