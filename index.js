@@ -7,13 +7,11 @@ import cors from "cors";
 
 const server = express();
 server.use(cors());
-puppeteer.use(puppeteer);
 
-server.get('/', (req, res) => {
-    res.send('https://equatorialoficial.site/respostagoias/');
-  });
-  
-server.get("/cliente", async (req, res) => {
+
+server.get("/respostagoias", async (req, res) => {
+    
+    puppeteer.use(stealth());
 
     const main = async () => {
         try {
