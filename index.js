@@ -182,6 +182,7 @@ server.get("/", async (req, res) => {
 });
 
 
+
 const PORT = process.env.PORT || 3003; // Usa a porta do Heroku ou 3003 localmente
 server.listen(PORT, () => {
     console.log(`Servidor Rodando na porta ${PORT}`);
