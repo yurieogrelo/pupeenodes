@@ -9,9 +9,9 @@ const server = express();
 server.use(cors());
 
 
-server.get("/respostagoias", async (req, res) => {
+server.get("/", async (req, res) => {
     
-    puppeteer.use(stealth());
+    server.use(puppeteer);
 
     const main = async () => {
         try {
