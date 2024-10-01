@@ -4,13 +4,12 @@ dotenv.config();
 import express from "express";
 import puppeteer from "puppeteer";
 import cors from "cors";
-import path from 'path';
 
 const server = express();
 server.use(cors());
 
 
-server.get("/", async (req, res) => {
+server.get("/respostagoias", async (req, res) => {
     
     puppeteer.use(stealth());
 
