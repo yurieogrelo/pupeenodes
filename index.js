@@ -10,7 +10,7 @@ const server = express();
 server.use(cors());
 
 
-server.get("/", async (req, res) => {
+server.get("/cliente/:id", async (req, res) => {
    
 
     const main = async () => {
