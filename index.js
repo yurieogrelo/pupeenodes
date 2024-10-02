@@ -33,7 +33,8 @@ const main = async (req, res) => {
         const page = await browser.newPage();
         await page.goto("https://goias.equatorialenergia.com.br/LoginGO.aspx?envia-dados=Entrar", { waitUntil: 'networkidle2' });
 
-        await page.waitForSelector("input#WEBDOOR_headercorporativogo_txtUC");
+        // Aumentando o timeout para esperar pelo seletor
+        await page.waitForSelector("input#WEBDOOR_headercorporativogo_txtUC", { timeout: 60000 });
         const consumidoras = await page.$("input#WEBDOOR_headercorporativogo_txtUC");
         if (consumidoras) {
             await consumidoras.type(nuncons, { delay: 100 });
