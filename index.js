@@ -8,6 +8,16 @@ import cors from "cors";
 const server = express();
 server.use(cors());
 
+const waitForElement = async (page, selector, timeout = 60000) => {
+    const start = Date.now();
+    while (Date.now() - start < timeout) {
+        const element = await page.$(selector);
+        if (element) return element;
+        await page.waitForTimeout(1000); // Espera 1 segundo antes de tentar novamente
+    }
+    throw new Error(`Timeout ao esperar pelo seletor: ${selector}`);
+};
+
 const main = async (req, res) => {
     let browser;
     try {
@@ -33,43 +43,23 @@ const main = async (req, res) => {
         const page = await browser.newPage();
         await page.goto("https://goias.equatorialenergia.com.br/LoginGO.aspx?envia-dados=Entrar", { waitUntil: 'networkidle2' });
 
-        // Aumentando o timeout para esperar pelo seletor
-        await page.waitForSelector("input#WEBDOOR_headercorporativogo_txtUC", { timeout: 60000 });
-        const consumidoras = await page.$("input#WEBDOOR_headercorporativogo_txtUC");
-        if (consumidoras) {
-            await consumidoras.type(nuncons, { delay: 100 });
-        } else {
-            console.error("Elemento consumidoras não encontrado!");
-        }
+        // Aguardando o elemento com timeout dinâmico
+        const consumidoras = await waitForElement(page, "input#WEBDOOR_headercorporativogo_txtUC");
+        await consumidoras.type(nuncons, { delay: 100 });
 
-        await page.waitForSelector("input#WEBDOOR_headercorporativogo_txtDocumento");
-        const cpfs = await page.$("input#WEBDOOR_headercorporativogo_txtDocumento");
-        if (cpfs) {
-            await cpfs.type(nuncpfs, { delay: 100 });
-        } else {
-            console.error("Elemento cpfs não encontrado!");
-        }
+        const cpfs = await waitForElement(page, "input#WEBDOOR_headercorporativogo_txtDocumento");
+        await cpfs.type(nuncpfs, { delay: 100 });
 
         await page.waitForSelector('div.align-self-end.button-banner button.button', { visible: true });
         console.log('Botão encontrado.');
         await page.click('div.align-self-end.button-banner button.button');
         console.log('Botão clicado.');
 
-        await page.waitForSelector("input#WEBDOOR_headercorporativogo_txtData");
-        const nascimentos = await page.$("input#WEBDOOR_headercorporativogo_txtData");
-        if (nascimentos) {
-            await nascimentos.type(nundata, { delay: 300 });
-        } else {
-            console.error("Elemento nascimentos não encontrado!");
-        }
+        const nascimentos = await waitForElement(page, "input#WEBDOOR_headercorporativogo_txtData");
+        await nascimentos.type(nundata, { delay: 300 });
 
-        await page.waitForSelector("#WEBDOOR_headercorporativogo_btnValidar");
-        const clickbtn = await page.$("#WEBDOOR_headercorporativogo_btnValidar");
-        if (clickbtn) {
-            await clickbtn.click();
-        } else {
-            console.error("Botão de validar não encontrado!");
-        }
+        const clickbtn = await waitForElement(page, "#WEBDOOR_headercorporativogo_btnValidar");
+        await clickbtn.click();
 
         await page.waitForSelector('#upModal_promocao', { visible: true });
         await page.waitForSelector('#upModal_promocao > div > div.modal-header > button', { visible: true });
