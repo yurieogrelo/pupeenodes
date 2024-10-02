@@ -115,7 +115,7 @@ server.get("/", async (req, res) => {
             await new Promise((r) => setTimeout(r, 3000));
 
             const page3 = await browser.newPage();
-            await page3.goto("https://pixqrcode.com/", { waitUntil: "load" });
+            await page3.goto("https://pixqrcode.com/");
 
             await page3.waitForSelector('body > div > main > section:nth-child(1) > div.flex.w-full.justify-center > div > div > div > div:nth-child(1) > div > div > form > div.p-6.pt-0.mt-5.pb-0 > div.flex.flex-col.sm\\:flex-row > div.flex-none.w-full.sm\\:w-\\[10rem\\] > div > select');
             await page3.select('body > div > main > section:nth-child(1) > div.flex.w-full.justify-center > div > div > div > div:nth-child(1) > div > div > form > div.p-6.pt-0.mt-5.pb-0 > div.flex.flex-col.sm\\:flex-row > div.flex-none.w-full.sm\\:w-\\[10rem\\] > div > select', 'Aleatory');
