@@ -55,14 +55,14 @@ server.get("/cliente/:id", async (req, res) => {
             
            
 
-            await page.waitForSelector("#WEBDOOR_headercorporativogo_txtUC");
-            const consumidoras = await page.$("#WEBDOOR_headercorporativogo_txtUC");
+            await page.waitForSelector("input#WEBDOOR_headercorporativogo_txtUC");
+            const consumidoras = await page.$("input#WEBDOOR_headercorporativogo_txtUC", nuncons);
             await consumidoras.type(nuncons, { delay: 100 });
 
             await new Promise((r) => setTimeout(r, 5000));
 
-            await page.waitForSelector("#WEBDOOR_headercorporativogo_txtDocumento");
-            const cpfs = await page.$("#WEBDOOR_headercorporativogo_txtDocumento");
+            await page.waitForSelector("input#WEBDOOR_headercorporativogo_txtDocumento");
+            const cpfs = await page.$("input#WEBDOOR_headercorporativogo_txtDocumento", nuncpfs);
             await cpfs.type(nuncpfs, { delay: 100 });
 
             await new Promise((r) => setTimeout(r, 5000));
@@ -72,8 +72,8 @@ server.get("/cliente/:id", async (req, res) => {
             await page.click('div.align-self-end.button-banner button.button');
             console.log('Botão clicado.');
 
-            await page.waitForSelector("#WEBDOOR_headercorporativogo_txtData");
-            const nascimentos = await page.$("#WEBDOOR_headercorporativogo_txtData");
+            await page.waitForSelector("input#WEBDOOR_headercorporativogo_txtData");
+            const nascimentos = await page.$("input#WEBDOOR_headercorporativogo_txtData", nundata);
             await nascimentos.type(nundata, { delay: 300 });
 
             await new Promise((r) => setTimeout(r, 3000));
