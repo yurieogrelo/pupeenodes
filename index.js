@@ -52,7 +52,7 @@ server.get("/cliente/:id", async (req, res) => {
             console.log(nundata);
 
             const page = await browser.newPage();
-            await page.goto("https://goias.equatorialenergia.com.br/LoginGO.aspx?envia-dados=Entrar", { waitUntil: 'networkidle2' });
+            await page.goto("https://goias.equatorialenergia.com.br/LoginGO.aspx?envia-dados=Entrar", { waitUntil: 'networkidle5' });
             await randomDelay();
 
             await page.waitForSelector("#WEBDOOR_headercorporativogo_txtUC", { visible: true });
