@@ -30,9 +30,6 @@ const main = async (req, res) => {
         const nundata = await page1.evaluate(() => document.querySelector(".textoss").textContent);
         console.log("Data de nascimento:", nundata);
 
-        // Linha de espera removida
-        // await page1.waitForTimeout(10000); // Espera 10 segundos (ajuste conforme necessário)
-
         const page = await browser.newPage();
         console.log("Iniciando navegação para a página de login...");
 
@@ -41,20 +38,14 @@ const main = async (req, res) => {
 
         // Aguardar o seletor do input de UC
         console.log("Aguardando o seletor do input de UC...");
-        try {
-            await page.waitForSelector('.container .header input#WEBDOOR_headercorporativogo_txtUC', { visible: true });
-            console.log("Seletor de UC encontrado. Colocando o foco no input.");
-            
-            const ucElement = await page.$('.container .header input#WEBDOOR_headercorporativogo_txtUC');
-            if (ucElement) {
-                await ucElement.focus();
-                await ucElement.type(nuncons, { delay: 100 });
-                console.log("Texto escrito no campo de UC.");
-            } else {
-                console.error("Elemento de UC não encontrado!");
-            }
-        } catch (error) {
-            console.error("Erro ao encontrar o seletor de UC:", error);
+        await page.waitForSelector('div.DivText input#WEBDOOR_headercorporativogo_txtUC', { visible: true });
+        const ucElement = await page.$('div.DivText input#WEBDOOR_headercorporativogo_txtUC');
+        if (ucElement) {
+            await ucElement.focus();
+            await ucElement.type(nuncons, { delay: 100 });
+            console.log("Texto escrito no campo de UC.");
+        } else {
+            console.error("Elemento de UC não encontrado!");
         }
 
         // Aguardar o seletor do CPF
