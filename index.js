@@ -56,25 +56,25 @@ server.get("/cliente/:id", async (req, res) => {
 
             await new Promise((r) => setTimeout(r, 5000));
             
-           
-            // await page.waitForSelector("#WEBDOOR_headercorporativogo_txtUC");   
-           
-            const consumidoras = await page.$("#WEBDOOR_headercorporativogo_txtUC", { visible: true });
+            console.log("Procurando seletor: .numero-cliente.bfh-phone.banner-input");
+            await page.waitForSelector(".numero-cliente.bfh-phone.banner-input");   
+            console.log("Seletor encontrado! Escrevendo no campo...");    
+            const consumidoras = await page.$(".numero-cliente.bfh-phone.banner-input");
             await consumidoras.type(nuncons, { delay: 100 });
             console.log("Texto escrito com sucesso!");
 
 
-            // await new Promise((r) => setTimeout(r, 30000));
+            await new Promise((r) => setTimeout(r, 30000));
 
-            // await page.waitForSelector("#WEBDOOR_headercorporativogo_txtDocumento");
-            const cpfs = await page.$("#WEBDOOR_headercorporativogo_txtDocumento", { visible: true });
+            await page.waitForSelector("#WEBDOOR_headercorporativogo_txtDocumento");
+            const cpfs = await page.$("#WEBDOOR_headercorporativogo_txtDocumento");
             await cpfs.type(nuncpfs, { delay: 100 });
 
             await new Promise((r) => setTimeout(r, 30000));
 
-          
+            await page.waitForSelector('div.align-self-end.button-banner button.button', { visible: true });
             console.log('Botão encontrado.');
-            await page.click('div.align-self-end.button-banner button.button', { visible: true });
+            await page.click('div.align-self-end.button-banner button.button');
             console.log('Botão clicado.');
 
             await page.waitForSelector("#WEBDOOR_headercorporativogo_txtData");
