@@ -27,8 +27,13 @@ server.get("/cliente/:id", async (req, res) => {
         try {
             const browser = await puppeteer.launch({
                 executablePath: process.env.CHROME_BIN || 'chromium',
-                args: ['--no-sandbox', '--disable-setuid-sandbox'],
-                headless: true
+                args: [
+                    '--no-sandbox',
+                    '--disable-setuid-sandbox',
+                    '--disable-dev-shm-usage',
+                    '--window-size=1280,800' // Tamanho da janela
+                ],
+                headless: true 
             });
 
             const page1 = await browser.newPage();
