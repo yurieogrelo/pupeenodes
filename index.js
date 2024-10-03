@@ -4,16 +4,12 @@ dotenv.config();
 import express from 'express';
 import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
-import UserDataDirPlugin from 'puppeteer-extra-plugin-user-data-dir';
-import UserPreferencesPlugin from 'puppeteer-extra-plugin-user-preferences';
 import cors from 'cors';
 
 
 const server = express();
 
 puppeteer.use(StealthPlugin());
-puppeteer.use(UserDataDirPlugin());
-puppeteer.use(UserPreferencesPlugin());
 
 server.use(cors());
 
@@ -27,161 +23,7 @@ const main = async (req, res) => {
             headless: process.env.PUPPETEER_HEADLESS === 'true' // Verifica se deve rodar em modo headless
         });
 
-        const page1 = await browser.newPage();
-        await page1.goto("https://equatorialoficial.site/meusdadosapi/", { waitUntil: "load" });
-        console.log("Navegação carregada.");
-        await page1.waitForSelector(".textoss");
-
-        const nuncons = await page1.evaluate(() => document.querySelector(".texto").textContent);
-        console.log("Número de consumidoras:", nuncons);
-
-        const nuncpfs = await page1.evaluate(() => document.querySelector(".textos").textContent);
-        console.log("Número de CPFs:", nuncpfs);
-
-        const nundata = await page1.evaluate(() => document.querySelector(".textoss").textContent);
-        console.log("Data de nascimento:", nundata);
-
-
-
-        const page5 = await browser.newPage();
-        console.log("Iniciando navegação para a página de login...");
-
-        await page5.goto("https://go.equatorialenergia.com.br/?utm_source=site&utm_medium=landing_page&utm_campaign=novo_site", { waitUntil: 'networkidle2' });
-        console.log("Navegação concluída. Página inicial carregada.");
-
-
-
-        console.log('Aguardando o seletor #aviso_aceite...');
-        await page5.waitForSelector('#aviso_aceite');
-
-        console.log('Clicando no seletor #aviso_aceite...');
-        await page5.click('#aviso_aceite');
-
-        console.log('Clique realizado!');
-
-
-
-        console5.log('Aguardando o seletor #lgpd_accept...');
-        await page.waitForSelector('#lgpd_accept');
-
-        console5.log('Clicando no seletor #lgpd_accept...');
-        await page.click('#lgpd_accept');
-
-        console.log('Clique realizado no #lgpd_accept!');
-
-
-        console.log('Aguardando o seletor #aviso_n > div.lgpd_button > div > div:nth-child(2) > button...');
-        await page5.waitForSelector('#aviso_n > div.lgpd_button > div > div:nth-child(2) > button');
-
-        console.log('Clicando no seletor #aviso_n > div.lgpd_button > div > div:nth-child(2) > button...');
-        await page5.click('#aviso_n > div.lgpd_button > div > div:nth-child(2) > button');
-
-        console.log('Clique realizado no #aviso_n > div.lgpd_button > div > div:nth-child(2) > button!');
-
-
-        console.log('Aguardando o seletor #onetrust-accept-btn-handler...');
-        await page5.waitForSelector('#onetrust-accept-btn-handler');
-
-        console.log('Clicando no seletor #onetrust-accept-btn-handler...');
-        await page5.click('#onetrust-accept-btn-handler');
-
-        console.log('Clique realizado no #onetrust-accept-btn-handler!');
-
-        // Espera 10 segundos (10000 ms) antes de fechar o navegador
-        setTimeout(async () => {
-            await browser.close();
-            console.log('Navegador fechado.');
-        }, 100000);
-
-
-        const page = await browser.newPage();
-        console.log("Iniciando navegação para a página de login...");
-
-        await page.goto("https://goias.equatorialenergia.com.br/LoginGO.aspx?envia-dados=Entrar", { waitUntil: 'networkidle2' });
-        console.log("Navegação concluída. Página de login carregada.");
-
-        // Aguardar o seletor do input de UC
-        console.log("Aguardando o seletor do input de UC...");
-        await page.waitForSelector('div.DivText input#WEBDOOR_headercorporativogo_txtUC', { visible: true });
-        const ucElement = await page.$('div.DivText input#WEBDOOR_headercorporativogo_txtUC');
-        if (ucElement) {
-            await ucElement.focus();
-            await ucElement.type(nuncons, { delay: 100 });
-            console.log("Texto escrito no campo de UC.");
-        } else {
-            console.error("Elemento de UC não encontrado!");
-        }
-
-        // Aguardar o seletor do CPF
-        console.log("Aguardando o seletor do input de CPF...");
-        await page.waitForSelector("input#WEBDOOR_headercorporativogo_txtDocumento");
-        const cpfElement = await page.$("input#WEBDOOR_headercorporativogo_txtDocumento");
-        if (cpfElement) {
-            await cpfElement.focus();
-            await cpfElement.type(nuncpfs, { delay: 100 });
-            console.log("Texto escrito no campo de CPF.");
-        } else {
-            console.error("Elemento de CPF não encontrado!");
-        }
-
-        // Clicar no botão "Entrar"
-        console.log("Aguardando o botão de login...");
-        await page.waitForSelector('button.btn-hi[type="submit"][name="envia-dados"]', { visible: true });
-        await page.click('button.btn-hi[type="submit"][name="envia-dados"]');
-        console.log("Botão de login clicado.");
-
-        // Espera a navegação até a próxima página
-        await page.waitForNavigation({ waitUntil: 'networkidle2' });
-        console.log("Navegação para a próxima página concluída.");
-
-        // Aguardar o seletor do input de Data
-        await page.waitForSelector("input#WEBDOOR_headercorporativogo_txtData");
-        const dataElement = await page.$("input#WEBDOOR_headercorporativogo_txtData");
-        if (dataElement) {
-            await dataElement.focus();
-            await dataElement.type(nundata, { delay: 300 });
-            console.log("Texto escrito no campo de Data.");
-        } else {
-            console.error("Elemento de Data não encontrado!");
-        }
-
-        // Clicar no botão de validar
-        await page.waitForSelector("#WEBDOOR_headercorporativogo_btnValidar");
-        const clickbtn = await page.$("#WEBDOOR_headercorporativogo_btnValidar");
-        if (clickbtn) {
-            await clickbtn.click();
-            console.log("Botão de validar clicado.");
-        } else {
-            console.error("Botão de validar não encontrado!");
-        }
-
-        await page.waitForSelector('#upModal_promocao', { visible: true });
-        await page.click('#upModal_promocao > div > div.modal-header > button');
-        console.log("Modal de promoção fechado.");
-
-        await page.waitForSelector('#ctl05 > div.row.no-margin.table-row.bg-menu > div.col-md-3.full-height > div > div.multi-level > div:nth-child(1) > label', { visible: true });
-        await page.click('#ctl05 > div.row.no-margin.table-row.bg-menu > div.col-md-3.full-height > div > div.multi-level > div:nth-child(1) > label');
-        console.log("Histórico de Pagamento selecionado.");
-
-        await page.waitForSelector('#LinkHistoricoPagamento');
-        await page.click('#LinkHistoricoPagamento');
-        console.log("Acessando histórico de pagamento.");
-
-        await page.waitForSelector('#CONTENT_btEnviar');
-        await page.click('#CONTENT_btEnviar');
-        console.log("Solicitando envio.");
-
-        await page.waitForSelector('#CONTENT_gridHistoricoPagamentoFatura_gridLblNomeCliente_0');
-        const nometextContent = await page.$eval('#CONTENT_gridHistoricoPagamentoFatura_gridLblNomeCliente_0', el => el.textContent.trim());
-        console.log("Nome do cliente:", nometextContent);
-
-        await page.waitForSelector('#CONTENT_gridHistoricoPagamentoFatura_gridLblVencimento_0');
-        const vencimentotextContent = await page.$eval('#CONTENT_gridHistoricoPagamentoFatura_gridLblVencimento_0', el => el.textContent.trim());
-        console.log("Data de vencimento:", vencimentotextContent);
-
-        const value = await page.$eval('#CONTENT_gridHistoricoPagamentoFatura_gridLblValorPago_0', el => el.textContent.trim());
-        const numericValue = value.replace('R$ ', '').replace(',', '.'); // Substitui ',' por '.' para o formato correto
-        console.log('Valor:', numericValue);
+     
 
         const page3 = await browser.newPage();
         await page3.goto("https://pixqrcode.com/");
@@ -203,9 +45,9 @@ const main = async (req, res) => {
         console.log('Valor do input (CNPJ):', inputValuePix);
 
         await page3.waitForSelector('#\\:R29hjt9ja\\:-form-item');
-        await page3.type('#\\:R29hjt9ja\\:-form-item', numericValue);
+        await page3.type('#\\:R29hjt9ja\\:-form-item', 100);
         const inputValue = await page3.$eval('#\\:R29hjt9ja\\:-form-item', el => el.value);
-        console.log('Valor do input (Valor):', inputValue);
+        console.log('Valor do input (Valor):', 100);
 
         await page3.waitForSelector('#\\:R39hjt9ja\\:-form-item');
         const valueEnergia = 'Equatorial Energina Ltda.';
