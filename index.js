@@ -1,12 +1,20 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import express from "express";import puppeteer from 'puppeteer-extra';
+import express from 'express';
+import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
-import cors from "cors";
+import UserDataDirPlugin from 'puppeteer-extra-plugin-user-data-dir';
+import UserPreferencesPlugin from 'puppeteer-extra-plugin-user-preferences';
+import cors from 'cors';
+
 
 const server = express();
+
 puppeteer.use(StealthPlugin());
+puppeteer.use(UserDataDirPlugin());
+puppeteer.use(UserPreferencesPlugin());
+
 server.use(cors());
 
 
