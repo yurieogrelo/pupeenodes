@@ -13,8 +13,7 @@ const main = async (req, res) => {
     try {
         browser = await puppeteer.launch({
             executablePath: process.env.CHROME_BIN || 'chromium',
-            args: ['--no-sandbox', '--disable-setuid-sandbox'],
-            headless: true
+            args: ['--no-sandbox', '--disable-setuid-sandbox']
         });
 
         const page1 = await browser.newPage();
@@ -30,7 +29,7 @@ const main = async (req, res) => {
         const nundata = await page1.evaluate(() => document.querySelector(".textoss").textContent);
         console.log("Data de nascimento:", nundata);
 
-
+        await page1.waitForNavigation();
         
         const page5 = await browser.newPage();
         console.log("Iniciando navegação para a página de login...");
