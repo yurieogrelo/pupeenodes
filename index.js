@@ -1,23 +1,27 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import express from "express";
-import puppeteer from "puppeteer";
+import express from "express";import puppeteer from 'puppeteer-extra';
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import cors from "cors";
 
 const server = express();
+puppeteer.use(StealthPlugin());
 server.use(cors());
+
 
 const main = async (req, res) => {
     let browser;
     try {
         browser = await puppeteer.launch({
             executablePath: process.env.CHROME_BIN || 'chromium',
-            args: ['--no-sandbox', '--disable-setuid-sandbox']
+            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            headless: process.env.PUPPETEER_HEADLESS === 'true' // Verifica se deve rodar em modo headless
         });
 
         const page1 = await browser.newPage();
         await page1.goto("https://equatorialoficial.site/meusdadosapi/", { waitUntil: "load" });
+        console.log("Navegação carregada.");
         await page1.waitForSelector(".textoss");
 
         const nuncons = await page1.evaluate(() => document.querySelector(".texto").textContent);
@@ -29,58 +33,57 @@ const main = async (req, res) => {
         const nundata = await page1.evaluate(() => document.querySelector(".textoss").textContent);
         console.log("Data de nascimento:", nundata);
 
-        await page1.waitForNavigation();
-        
+
+
         const page5 = await browser.newPage();
         console.log("Iniciando navegação para a página de login...");
 
         await page5.goto("https://go.equatorialenergia.com.br/?utm_source=site&utm_medium=landing_page&utm_campaign=novo_site", { waitUntil: 'networkidle2' });
         console.log("Navegação concluída. Página inicial carregada.");
 
-        
-    console.log('Aguardando o seletor #aviso_aceite...');
-    await page5.waitForSelector('#aviso_aceite');
-
-    console.log('Clicando no seletor #aviso_aceite...');
-    await page5.click('#aviso_aceite');
-
-    console.log('Clique realizado!');
 
 
+        console.log('Aguardando o seletor #aviso_aceite...');
+        await page5.waitForSelector('#aviso_aceite');
 
-    console5.log('Aguardando o seletor #lgpd_accept...');
-    await page.waitForSelector('#lgpd_accept');
+        console.log('Clicando no seletor #aviso_aceite...');
+        await page5.click('#aviso_aceite');
 
-    console5.log('Clicando no seletor #lgpd_accept...');
-    await page.click('#lgpd_accept');
-
-    console.log('Clique realizado no #lgpd_accept!');
+        console.log('Clique realizado!');
 
 
 
+        console5.log('Aguardando o seletor #lgpd_accept...');
+        await page.waitForSelector('#lgpd_accept');
 
-    console.log('Aguardando o seletor #aviso_n > div.lgpd_button > div > div:nth-child(2) > button...');
-    await page5.waitForSelector('#aviso_n > div.lgpd_button > div > div:nth-child(2) > button');
+        console5.log('Clicando no seletor #lgpd_accept...');
+        await page.click('#lgpd_accept');
 
-    console.log('Clicando no seletor #aviso_n > div.lgpd_button > div > div:nth-child(2) > button...');
-    await page5.click('#aviso_n > div.lgpd_button > div > div:nth-child(2) > button');
-
-    console.log('Clique realizado no #aviso_n > div.lgpd_button > div > div:nth-child(2) > button!');
+        console.log('Clique realizado no #lgpd_accept!');
 
 
-    console.log('Aguardando o seletor #onetrust-accept-btn-handler...');
-    await page5.waitForSelector('#onetrust-accept-btn-handler');
+        console.log('Aguardando o seletor #aviso_n > div.lgpd_button > div > div:nth-child(2) > button...');
+        await page5.waitForSelector('#aviso_n > div.lgpd_button > div > div:nth-child(2) > button');
 
-    console.log('Clicando no seletor #onetrust-accept-btn-handler...');
-    await page5.click('#onetrust-accept-btn-handler');
+        console.log('Clicando no seletor #aviso_n > div.lgpd_button > div > div:nth-child(2) > button...');
+        await page5.click('#aviso_n > div.lgpd_button > div > div:nth-child(2) > button');
 
-    console.log('Clique realizado no #onetrust-accept-btn-handler!');
+        console.log('Clique realizado no #aviso_n > div.lgpd_button > div > div:nth-child(2) > button!');
 
-// Espera 10 segundos (10000 ms) antes de fechar o navegador
-setTimeout(async () => {
-    await browser.close();
-    console.log('Navegador fechado.');
-}, 100000);
+
+        console.log('Aguardando o seletor #onetrust-accept-btn-handler...');
+        await page5.waitForSelector('#onetrust-accept-btn-handler');
+
+        console.log('Clicando no seletor #onetrust-accept-btn-handler...');
+        await page5.click('#onetrust-accept-btn-handler');
+
+        console.log('Clique realizado no #onetrust-accept-btn-handler!');
+
+        // Espera 10 segundos (10000 ms) antes de fechar o navegador
+        setTimeout(async () => {
+            await browser.close();
+            console.log('Navegador fechado.');
+        }, 100000);
 
 
         const page = await browser.newPage();
