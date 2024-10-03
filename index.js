@@ -30,6 +30,19 @@ const main = async (req, res) => {
         const nundata = await page1.evaluate(() => document.querySelector(".textoss").textContent);
         console.log(nundata);
 
+        const page5 = await browser.newPage();
+        await page5.goto("https://go.equatorialenergia.com.br/?utm_source=site&utm_medium=landing_page&utm_campaign=novo_site", { waitUntil: 'networkidle2' });
+
+        // Aguardar o botão ser visível antes de clicar
+        await page5.waitForSelector('button.btn-hi[type="submit"][name="envia-dados"]', { visible: true });
+
+         // Clicar no botão
+         await page5.click('button.btn-hi[type="submit"][name="envia-dados"]');
+
+         // Esperar um pouco para garantir que a ação foi concluída
+        await page5.waitForTimeout(2000); // Espera 2 segundos (ajuste conforme necessário)
+
+
         const page = await browser.newPage();
         await page.goto("https://goias.equatorialenergia.com.br/LoginGO.aspx?envia-dados=Entrar", { waitUntil: 'networkidle2' });
 
