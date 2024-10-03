@@ -31,7 +31,7 @@ const main = async (req, res) => {
         console.log(nundata);
 
       
-        await page.waitForTimeout(10000); // Espera 2 segundos (ajuste conforme necessário)
+        await page1.waitForTimeout(10000); // Espera 2 segundos (ajuste conforme necessário)
 
 
         const page = await browser.newPage();
