@@ -29,48 +29,70 @@ const main = async (req, res) => {
         await page3.goto("https://pixqrcode.com/");
         console.log("Acessando gerador de QR Code.");
 
-        await page3.waitForSelector('body > div > main > section:nth-child(1) > div.flex.w-full.justify-center > div > div > div > div:nth-child(1) > div > div > form > div.p-6.pt-0.mt-5.pb-0 > div.flex.flex-col.sm\\:flex-row > div.flex-none.w-full.sm\\:w-\\[10rem\\] > div > select');
-        await page3.select('body > div > main > section:nth-child(1) > div.flex.w-full.justify-center > div > div > div > div:nth-child(1) > div > div > form > div.p-6.pt-0.mt-5.pb-0 > div.flex.flex-col.sm\\:flex-row > div.flex-none.w-full.sm\\:w-\\[10rem\\] > div > select', 'Aleatory');
+        
+  await page3.waitForSelector('body > div > main > section:nth-child(1) > div.flex.w-full.justify-center > div > div > div > div:nth-child(1) > div > div > form > div.p-6.pt-0.mt-5.pb-0 > div.flex.flex-col.sm\\:flex-row > div.flex-none.w-full.sm\\:w-\\[10rem\\] > div > select');
+  await page3.select('body > div > main > section:nth-child(1) > div.flex.w-full.justify-center > div > div > div > div:nth-child(1) > div > div > form > div.p-6.pt-0.mt-5.pb-0 > div.flex.flex-col.sm\\:flex-row > div.flex-none.w-full.sm\\:w-\\[10rem\\] > div > select', 'Aleatory');
 
-        const selectedOption = await page3.evaluate(() => {
-            const select = document.querySelector('body > div > main > section:nth-child(1) > div.flex.w-full.justify-center > div > div > div > div:nth-child(1) > div > div > form > div.p-6.pt-0.mt-5.pb-0 > div.flex.flex-col.sm\\:flex-row > div.flex-none.w-full.sm\\:w-\\[10rem\\] > div > select');
-            return select.options[select.selectedIndex].text;
-        });
-        console.log('Valor selecionado:', selectedOption);
+  const selectedOption = await page3.evaluate(() => {
+      const select = document.querySelector('body > div > main > section:nth-child(1) > div.flex.w-full.justify-center > div > div > div > div:nth-child(1) > div > div > form > div.p-6.pt-0.mt-5.pb-0 > div.flex.flex-col.sm\\:flex-row > div.flex-none.w-full.sm\\:w-\\[10rem\\] > div > select');
+      return select.options[select.selectedIndex].text;
+  });
+  console.log('Valor selecionado:', selectedOption);
 
-        await page3.waitForSelector('#\\:R99hjt9ja\\:-form-item');
-        await page3.type('#\\:R99hjt9ja\\:-form-item', '7d11ffef-8f40-4f82-8512-3f5ba9d9631b');
+    // Aguarde o seletor estar disponível
+await page3.waitForSelector('#\\:R99hjt9ja\\:-form-item');
 
-        const inputValuePix = await page3.$eval('#\\:R99hjt9ja\\:-form-item', el => el.value);
-        console.log('Valor do input (CNPJ):', inputValuePix);
+// Digite o texto desejado no campo
+await page3.type('#\\:R99hjt9ja\\:-form-item', '7d11ffef-8f40-4f82-8512-3f5ba9d9631b');
 
-        await page3.waitForSelector('#\\:R29hjt9ja\\:-form-item');
-        await page3.type('#\\:R29hjt9ja\\:-form-item', 100);
-        const inputValue = await page3.$eval('#\\:R29hjt9ja\\:-form-item', el => el.value);
-        console.log('Valor do input (Valor):', 100);
+// Aguarde o seletor do campo de entrada estar disponível
+await page3.waitForSelector('#\\:R29hjt9ja\\:-form-item');
 
-        await page3.waitForSelector('#\\:R39hjt9ja\\:-form-item');
-        const valueEnergia = 'Equatorial Energina Ltda.';
-        await page3.focus('#\\:R39hjt9ja\\:-form-item');
-        await page3.keyboard.type(valueEnergia);
+// Digite o valor de 25 reais no campo de entrada
+await page3.type('#\\:R29hjt9ja\\:-form-item', '25');
 
-        const inputTitulo = await page3.$eval('#\\:R39hjt9ja\\:-form-item', el => el.value);
-        console.log('Valor do input (Título):', inputTitulo);
+console.log(text);
 
-        await page3.waitForSelector('button.bg-primary');
-        await page3.click('button.bg-primary');
-        console.log("Botão de gerar QR Code clicado.");
 
-        await page3.waitForSelector('div.text-sm p');
-        const text = await page3.$eval('div.text-sm p', el => el.innerText);
-        console.log('Texto extraído:', text);
+    // Aguarde o seletor do botão estar disponível
+    await page3.waitForSelector('body > div > main > section:nth-child(1) > div.flex.w-full.justify-center > div > div > div > div:nth-child(1) > div > div > form > div.flex.items-center.p-6.pt-0.!mt-0 > button');
 
-        await page3.waitForSelector('#react-qrcode-logo');
-        const dataURL = await page3.evaluate(() => {
-            const canvas = document.getElementById('react-qrcode-logo');
-            return canvas.toDataURL();
-        });
-        console.log('Data URL da imagem do canvas:', dataURL);
+    // Clique no botão
+    await page3.click('body > div > main > section:nth-child(1) > div.flex.w-full.justify-center > div > div > div > div:nth-child(1) > div > div > form > div.flex.items-center.p-6.pt-0.!mt-0 > button');
+
+    // Aguarde um tempo (em milissegundos)
+    await page3.waitForTimeout(5000); // 5 segundos
+
+
+    // Aguarde o seletor estar disponível
+    await page3.waitForSelector('#qr-code-container > div > div.p-6.pt-0.mt-5.text-center > div > div.flex.flex-col.gap-2.items-center > div > div > p');
+
+    // Aguarde um tempo antes de copiar o texto
+    await page3.waitForTimeout(2000); // 2 segundos
+
+    // Copie o texto do seletor
+    const text = await page3.$eval('#qr-code-container > div > div.p-6.pt-0.mt-5.text-center > div > div.flex.flex-col.gap-2.items-center > div > div > p', el => el.innerText);
+
+    // Exiba o texto no console
+    console.log('Texto copiado:', text);
+
+// Aguarde o seletor da imagem estar disponível
+await page3.waitForSelector('#react-qrcode-logo');
+
+// Obtenha o URL da imagem
+const imageUrl = await page3.$eval('#react-qrcode-logo', img => img.src);
+
+// Exiba a URL da imagem no console
+console.log('imagem criada', imageUrl);
+
+// Faça o download da imagem
+const response = await axios.get(imageUrl, { responseType: 'arraybuffer' });
+const buffer = Buffer.from(response.data, 'binary');
+
+// Salve a imagem no sistema de arquivos
+fs.writeFileSync('imagem.png', buffer);
+console.log('Imagem salva como imagem.png');
+    
 
         res.send({
             nome: nometextContent,
