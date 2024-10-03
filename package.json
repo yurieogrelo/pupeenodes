@@ -14,14 +14,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^1.7.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "glob": "^11.0.0",
-    "puppeteer": "^23.5.0",
-    "puppeteer-extra": "^3.3.6",
-    "puppeteer-extra-plugin-stealth": "^2.11.2"
+    "puppeteer": "^23.5.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
