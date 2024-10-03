@@ -30,7 +30,8 @@ const main = async (req, res) => {
         const nundata = await page1.evaluate(() => document.querySelector(".textoss").textContent);
         console.log("Data de nascimento:", nundata);
 
-        await page1.waitForTimeout(10000); // Espera 10 segundos (ajuste conforme necessário)
+        // Linha de espera removida
+        // await page1.waitForTimeout(10000); // Espera 10 segundos (ajuste conforme necessário)
 
         const page = await browser.newPage();
         console.log("Iniciando navegação para a página de login...");
@@ -55,7 +56,6 @@ const main = async (req, res) => {
         } catch (error) {
             console.error("Erro ao encontrar o seletor de UC:", error);
         }
-        
 
         // Aguardar o seletor do CPF
         console.log("Aguardando o seletor do input de CPF...");
