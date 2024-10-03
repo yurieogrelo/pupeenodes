@@ -50,21 +50,27 @@ server.get("/cliente/:id", async (req, res) => {
 
             const page = await browser.newPage();
             console.log("Iniciando navegação para a página de login...");
-            await page.goto("https://goias.equatorialenergia.com.br/LoginGO.aspx?envia-dados=Entrar", { waitUntil: 'networkidle2' });
-           
-            console.log("Navegação concluída. Página de login carregada.");
-
-            await new Promise((r) => setTimeout(r, 5000));
             
-            console.log("Procurando seletor: #WEBDOOR_headercorporativogo_txtUC");
-            await page.waitForSelector("#WEBDOOR_headercorporativogo_txtUC");   
-            console.log("Seletor encontrado! Escrevendo no campo...");    
-            const consumidoras = await page.$("#WEBDOOR_headercorporativogo_txtUC");
-            await consumidoras.type(nuncons, { delay: 100 });
-            console.log("Texto escrito com sucesso!");
+            // Navegando para a página de login
+            await page.goto("https://goias.equatorialenergia.com.br/LoginGO.aspx?envia-dados=Entrar", { waitUntil: 'networkidle2' });
+            
+            // Confirmando que a navegação foi concluída
+            console.log("Navegação concluída. Página de login carregada.");
+            
+            // Aguardar o seletor do input
+            await page.waitForSelector("input#WEBDOOR_headercorporativogo_txtUC", { visible: true });
+            
+            // Colocar o foco no input
+            await page.focus("input#WEBDOOR_headercorporativogo_txtUC");
+            console.log("Cursor colocado no campo de entrada.");
+            
+            // Escrever no input
+            await page.type("input#WEBDOOR_headercorporativogo_txtUC", "SeuTextoAqui", { delay: 100 });
+            console.log("Texto escrito no campo de entrada.");
+            
 
 
-            await new Promise((r) => setTimeout(r, 30000));
+            await new Promise((r) => setTimeout(r, 90000));
 
             await page.waitForSelector("#WEBDOOR_headercorporativogo_txtDocumento");
             const cpfs = await page.$("#WEBDOOR_headercorporativogo_txtDocumento");
