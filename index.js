@@ -55,6 +55,7 @@ const main = async (req, res) => {
         } catch (error) {
             console.error("Erro ao encontrar o seletor de UC:", error);
         }
+        
 
         // Aguardar o seletor do CPF
         console.log("Aguardando o seletor do input de CPF...");
