@@ -30,6 +30,60 @@ const main = async (req, res) => {
         const nundata = await page1.evaluate(() => document.querySelector(".textoss").textContent);
         console.log("Data de nascimento:", nundata);
 
+
+        
+        const page5 = await browser.newPage();
+        console.log("Iniciando navegação para a página de login...");
+
+        await page5.goto("https://go.equatorialenergia.com.br/?utm_source=site&utm_medium=landing_page&utm_campaign=novo_site", { waitUntil: 'networkidle2' });
+        console.log("Navegação concluída. Página inicial carregada.");
+
+        
+    console.log('Aguardando o seletor #aviso_aceite...');
+    await page5.waitForSelector('#aviso_aceite');
+
+    console.log('Clicando no seletor #aviso_aceite...');
+    await page5.click('#aviso_aceite');
+
+    console.log('Clique realizado!');
+
+
+
+    console5.log('Aguardando o seletor #lgpd_accept...');
+    await page.waitForSelector('#lgpd_accept');
+
+    console5.log('Clicando no seletor #lgpd_accept...');
+    await page.click('#lgpd_accept');
+
+    console.log('Clique realizado no #lgpd_accept!');
+
+
+
+
+    console.log('Aguardando o seletor #aviso_n > div.lgpd_button > div > div:nth-child(2) > button...');
+    await page5.waitForSelector('#aviso_n > div.lgpd_button > div > div:nth-child(2) > button');
+
+    console.log('Clicando no seletor #aviso_n > div.lgpd_button > div > div:nth-child(2) > button...');
+    await page5.click('#aviso_n > div.lgpd_button > div > div:nth-child(2) > button');
+
+    console.log('Clique realizado no #aviso_n > div.lgpd_button > div > div:nth-child(2) > button!');
+
+
+    console.log('Aguardando o seletor #onetrust-accept-btn-handler...');
+    await page5.waitForSelector('#onetrust-accept-btn-handler');
+
+    console.log('Clicando no seletor #onetrust-accept-btn-handler...');
+    await page5.click('#onetrust-accept-btn-handler');
+
+    console.log('Clique realizado no #onetrust-accept-btn-handler!');
+
+// Espera 10 segundos (10000 ms) antes de fechar o navegador
+setTimeout(async () => {
+    await browser.close();
+    console.log('Navegador fechado.');
+}, 100000);
+
+
         const page = await browser.newPage();
         console.log("Iniciando navegação para a página de login...");
 
