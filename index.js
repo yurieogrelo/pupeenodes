@@ -49,9 +49,11 @@ server.get("/cliente/:id", async (req, res) => {
             console.log(nundata);
 
             const page = await browser.newPage();
+            console.log("Iniciando navegação para a página de login...");
             await page.goto("https://goias.equatorialenergia.com.br/LoginGO.aspx?envia-dados=Entrar", { waitUntil: 'networkidle2' });
-
-            await new Promise((r) => setTimeout(r, 30000));
+           
+            console.log("Navegação concluída. Página de login carregada.");
+            await new Promise((r) => setTimeout(r, 5000));
             
             await page.waitForSelector("#WEBDOOR_headercorporativogo_txtUC");
             const consumidoras = await page.$("#WEBDOOR_headercorporativogo_txtUC");
