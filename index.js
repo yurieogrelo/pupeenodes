@@ -50,37 +50,31 @@ server.get("/cliente/:id", async (req, res) => {
 
             const page = await browser.newPage();
             console.log("Iniciando navegação para a página de login...");
-            
-            // Navegando para a página de login
             await page.goto("https://goias.equatorialenergia.com.br/LoginGO.aspx?envia-dados=Entrar", { waitUntil: 'networkidle2' });
-            
-            // Confirmando que a navegação foi concluída
+           
             console.log("Navegação concluída. Página de login carregada.");
+
+            await new Promise((r) => setTimeout(r, 5000));
             
-            // Aguardar o seletor do input
-            await page.waitForSelector("input#WEBDOOR_headercorporativogo_txtUC", { visible: true });
-            
-            // Colocar o foco no input
-            await page.focus("input#WEBDOOR_headercorporativogo_txtUC");
-            console.log("Cursor colocado no campo de entrada.");
-            
-            // Escrever no input
-            await page.type("input#WEBDOOR_headercorporativogo_txtUC", "SeuTextoAqui", { delay: 100 });
-            console.log("Texto escrito no campo de entrada.");
-            
+           
+            // await page.waitForSelector("#WEBDOOR_headercorporativogo_txtUC");   
+           
+            const consumidoras = await page.$("#WEBDOOR_headercorporativogo_txtUC", { visible: true });
+            await consumidoras.type(nuncons, { delay: 100 });
+            console.log("Texto escrito com sucesso!");
 
 
-            await new Promise((r) => setTimeout(r, 90000));
+            // await new Promise((r) => setTimeout(r, 30000));
 
-            await page.waitForSelector("#WEBDOOR_headercorporativogo_txtDocumento");
-            const cpfs = await page.$("#WEBDOOR_headercorporativogo_txtDocumento");
+            // await page.waitForSelector("#WEBDOOR_headercorporativogo_txtDocumento");
+            const cpfs = await page.$("#WEBDOOR_headercorporativogo_txtDocumento", { visible: true });
             await cpfs.type(nuncpfs, { delay: 100 });
 
             await new Promise((r) => setTimeout(r, 30000));
 
-            await page.waitForSelector('div.align-self-end.button-banner button.button', { visible: true });
+          
             console.log('Botão encontrado.');
-            await page.click('div.align-self-end.button-banner button.button');
+            await page.click('div.align-self-end.button-banner button.button', { visible: true });
             console.log('Botão clicado.');
 
             await page.waitForSelector("#WEBDOOR_headercorporativogo_txtData");
