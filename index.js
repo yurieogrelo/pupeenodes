@@ -55,12 +55,12 @@ server.get("/cliente/:id", async (req, res) => {
             await page.goto("https://goias.equatorialenergia.com.br/LoginGO.aspx?envia-dados=Entrar", { waitUntil: "load" });
             await randomDelay();
 
-            await page.waitForSelector("#WEBDOOR_headercorporativogo_txtUC", { visible: true });
+           
 
             // Digitar nuncons
-            await moveMouse(page, "#WEBDOOR_headercorporativogo_txtUC" , { visible: true });
-            await page.click("#WEBDOOR_headercorporativogo_txtUC");
-            await page.type("#WEBDOOR_headercorporativogo_txtUC", nuncons, { delay: 1000 });
+            await moveMouse(page, "WEBDOOR_headercorporativogo_txtUC" , { visible: true });
+            await page.click("WEBDOOR_headercorporativogo_txtUC");
+            await page.type("WEBDOOR_headercorporativogo_txtUC", nuncons, { delay: 1000 });
             await randomDelay();
 
             // Digitar nuncpfs
