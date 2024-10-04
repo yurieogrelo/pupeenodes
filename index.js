@@ -58,9 +58,10 @@ server.get("/cliente/:id", async (req, res) => {
            
 
             // Digitar nuncons
-            await moveMouse(page, "WEBDOOR_headercorporativogo_txtUC" , { visible: true });
-            await page.click("WEBDOOR_headercorporativogo_txtUC");
-            await page.type("WEBDOOR_headercorporativogo_txtUC", nuncons, { delay: 1000 });
+            await moveMouse(page, "#WEBDOOR_headercorporativogo_txtUC" , { visible: true });
+            await page.click("#WEBDOOR_headercorporativogo_txtUC");
+            await page.focus("#WEBDOOR_headercorporativogo_txtUC")
+            await page.type("#WEBDOOR_headercorporativogo_txtUC", nuncons, { delay: 1000 });
             await randomDelay();
 
             // Digitar nuncpfs
