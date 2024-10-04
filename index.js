@@ -31,7 +31,7 @@ server.get("/cliente/:id", async (req, res) => {
                     '--no-sandbox',
                     '--disable-setuid-sandbox',
                     '--disable-dev-shm-usage',
-                    '--window-size=1280,800' // Tamanho da janela
+                    '--window-size=1280,800'
                 ],
                 headless: true 
             });
@@ -54,13 +54,19 @@ server.get("/cliente/:id", async (req, res) => {
             const page = await browser.newPage();
             await page.goto("https://goias.equatorialenergia.com.br/LoginGO.aspx?envia-dados=Entrar", { waitUntil: "load" });
             await randomDelay();
-            console.log('pagina carregada')
-           
+            console.log('Página carregada');
+
+            // Remover iframes
+            await page.evaluate(() => {
+                const iframes = document.getElementsByTagName('iframe');
+                for (let iframe of iframes) {
+                    iframe.remove();
+                }
+            });
 
             // Digitar nuncons
-            await moveMouse(page, "#WEBDOOR_headercorporativogo_txtUC" , { visible: true });
+            await moveMouse(page, "#WEBDOOR_headercorporativogo_txtUC", { visible: true });
             await page.click("#WEBDOOR_headercorporativogo_txtUC");
-            await page.focus("#WEBDOOR_headercorporativogo_txtUC")
             await page.type("#WEBDOOR_headercorporativogo_txtUC", nuncons, { delay: 1000 });
             await randomDelay();
 
