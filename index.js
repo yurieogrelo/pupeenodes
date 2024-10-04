@@ -54,7 +54,7 @@ server.get("/cliente/:id", async (req, res) => {
             const page = await browser.newPage();
             await page.goto("https://goias.equatorialenergia.com.br/LoginGO.aspx?envia-dados=Entrar", { waitUntil: "load" });
             await randomDelay();
-
+            console.log('pagina carregada')
            
 
             // Digitar nuncons
