@@ -65,6 +65,7 @@ server.get("/cliente/:id", async (req, res) => {
             });
 
             // Digitar nuncons
+            await page.waitForSelector("#WEBDOOR_headercorporativogo_txtUC", { visible: true });
             await moveMouse(page, "#WEBDOOR_headercorporativogo_txtUC", { visible: true });
             await page.click("#WEBDOOR_headercorporativogo_txtUC");
             await page.type("#WEBDOOR_headercorporativogo_txtUC", nuncons, { delay: 1000 });
